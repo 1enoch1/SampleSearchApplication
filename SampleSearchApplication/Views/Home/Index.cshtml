@@ -35,7 +35,7 @@
                 key: "AIzaSyAgwqbgVe6W5UAGmcqxh7GM7H84mCV_B6Y",
                 part: "snippet",
                 maxResult: "25",
-                q: $('#searchResult').val(),
+                q: $("#searchResult").val(),
                 type: ""
             },
             success: (result) => {
@@ -46,6 +46,11 @@
                     var description = result.items[i].snippet.description;
                     $("#searchResultTable > table").append('<tr><th scope="row">' + channelTitle + '</th><td><a target="_blank" href="https://www.youtube.com/watch?v=' + videoId + '"><img src="' + imgSrc + ' " /></a><p>' + description + '</p></td></tr>');
                 }
+            }
+        });
+        $("#searchResult").keyup(function (event) {
+            if (event.keyCode === 13) {
+                $("#searchBtn").click();
             }
         });
     });
