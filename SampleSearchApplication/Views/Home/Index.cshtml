@@ -1,0 +1,54 @@
+﻿@{
+    ViewBag.Title = "Home Page";
+}
+
+<!--Enoch Offiah, Developer Challenge
+    The search button is customised with a bootstrap class i.e. btn-primary-->
+<div class="container">
+    <div class="row">
+        <input style="margin: 5px; padding: 5px" id="searchResult" placeholder="Enter Search Here..." type="text" />
+        <input id="searchBtn" class="btn btn-primary" type="button" value="Search">
+
+    </div>
+
+
+    <!--An empty table which holds search results found by the custom jQuery below. The search results are appended to the table -->
+    <div id="searchResultTable">
+        <table class="table"></table>
+    </div>
+</div>
+<!-- Once the Search button is clicked by a user, Below JQuery communicates with the Youtube API directly to get the following:
+    * image thumbnail
+    * videoId
+    * video title
+    * video description
+    As an additional feature, the thumbnails holds a url to make it clickable-->
+<script src="https://code.jquery.com/jquery-3.3.1.min.js"
+        integrity="sha256-FgpCb/KJQlLNfOu91ta32o/NMZxltwRo8QtmkMRdAu8="
+        crossorigin="anonymous"></script>
+<script>
+    $("#searchBtn").click(() => {
+        $.ajax({
+            type: "GET",
+            url: "https://www.googleapis.com/youtube/v3/search",
+            data: {
+                key: "AIzaSyAgwqbgVe6W5UAGmcqxh7GM7H84mCV_B6Y",
+                part: "snippet",
+                maxResult: "25",
+                q: $('#searchResult').val(),
+                type: ""
+            },
+            success: (result) => {
+                for (var i = 0; i < result.items.length; i++) {
+                    var imgSrc = result.items[i].snippet.thumbnails.medium.url;
+                    var videoId = result.items[i].id.videoId;
+                    var channelTitle = result.items[i].snippet.channelTitle;
+                    var description = result.items[i].snippet.description;
+                    $("#searchResultTable > table").append('<tr><th scope="row">' + channelTitle + '</th><td><a target="_blank" href="https://www.youtube.com/watch?v=' + videoId + '"><img src="' + imgSrc + ' " /></a><p>' + description + '</p></td></tr>');
+                }
+            }
+        });
+    });
+
+
+</script>
