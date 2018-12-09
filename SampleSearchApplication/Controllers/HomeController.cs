@@ -12,7 +12,7 @@ namespace SampleSearchApplication.Controllers
         {
             return View();
         }
-
+/*
         public ActionResult About()
         {
             ViewBag.Message = "Your application description page.";
@@ -26,12 +26,7 @@ namespace SampleSearchApplication.Controllers
 
             return View();
         }
+*/
 
-        //[HttpGet]
-        //public JsonResult SearchYoutube(string searchResult) {
-        //    //API TO YOUTUBE
-        //    return new JsonResult();
-
-        //}
     }
 }
